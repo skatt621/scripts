@@ -28,7 +28,7 @@ for i in xdopids:
 
 # Running the resizing script on each window
 for i in name_xdopid:
-    p=subprocess.run("./sizer.sh '{0}' '{1}' > /dev/null 2>&1".format(i[0], i[1]), shell=True, stdout=subprocess.PIPE)
+    p=subprocess.run("./sizer.sh \"{0}\" \"{1}\" > /dev/null 2>&1".format(i[0], i[1]), shell=True, stdout=subprocess.PIPE)
 
 # Removing the xdo process ID file
 os.remove("xdopids")
