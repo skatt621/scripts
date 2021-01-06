@@ -4,11 +4,10 @@ set undodir=~/.vimundo/
 set undofile
 set backupdir=~/.vimbackup/
 
-" Forcing Vim to ask me if I want to quit
-" https://vi.stackexchange.com/questions/5870/how-to-safely-quit-vim-if-theres-some-unsaved-changes
+" Forcing Vim to ask me if I want to save before I quit
 set confirm
 
-" Line numbers and setting up splits for my 'NERDtree' to work
+" Line numbers and setting up splits for my 'NERDtree' to work (I'm actually using netrw)
 set number
 set relativenumber
 set splitright
@@ -23,7 +22,7 @@ set incsearch
 set ignorecase
 
 " Long list of settings for setting up the file position crosshair
-" Looks good with 'delek' colorscheme, but also with the custom theme 'embark'
+" Looks good with 'delek' colorscheme, but also with the custom theme 'embark' because it overrides them
 set cursorline
 set cursorcolumn
 set colorcolumn=81
@@ -38,7 +37,7 @@ augroup MyColors
                       \ | highlight StatusLine ctermbg=132 ctermfg=White
 augroup END
 
-" Setting colorscheme
+" Setting colorscheme; may need to remove 'termguicolors' off if the terminal doesn't support it
 " https://github.com/embark-theme/vim
 set termguicolors
 color embark
@@ -51,21 +50,25 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Status line settings (don't know exactly what they do)
+" Status line settings (don't know exactly what they do, tbh, but they look nice)
 set laststatus=2
 set shortmess-=S
 
 " Comment macros
 let @w = "^i#aj"
 let @s = "^xj"
-let @r = ":normal! @w"
-let @f = ":normal! @s"
+let @r = ":normal! @w
+"
+let @f = ":normal! @s
+"
 
 " Indent macros
 let @q = "0i    aj"
 let @a = "0xxxxaj"
-let @e = ":normal! @q"
-let @d = ":normal! @a"
+let @e = ":normal! @q
+"
+let @d = ":normal! @a
+"
 
 " Remapping function keys to macros + save/quit commands
 " Disable F1 help
@@ -85,7 +88,7 @@ nnoremap <F12> @a
 noremap <F1> :wqa!<CR>
 noremap <F2> :qall<CR>
 
-" Netrw settings to look like NERDtree
+" Netrw settings to look/act like NERDtree
 " https://shapeshed.com/vim-netrw/
 " https://vi.stackexchange.com/questions/11418/how-to-execute-a-macro-in-command-mode
 let g:netrw_liststyle = 3
