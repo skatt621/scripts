@@ -12,4 +12,4 @@ while read p
 do                                                                               
     kill -9 $p                                                                   
 done < file                                                                      
-kill file
+rm file
