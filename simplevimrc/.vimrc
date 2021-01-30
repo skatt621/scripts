@@ -4,10 +4,11 @@ set undodir=~/.vimundo/
 set undofile
 set backupdir=~/.vimbackup/
 
-" Forcing Vim to ask me if I want to save before I quit
+" Forcing Vim to ask me if I want to quit
+" https://vi.stackexchange.com/questions/5870/how-to-safely-quit-vim-if-theres-some-unsaved-changes
 set confirm
 
-" Line numbers and setting up splits for my 'NERDtree' to work (I'm actually using netrw)
+" Line numbers and setting up splits for my 'NERDtree' to work
 set number
 set relativenumber
 set splitright
@@ -22,7 +23,7 @@ set incsearch
 set ignorecase
 
 " Long list of settings for setting up the file position crosshair
-" Looks good with 'delek' colorscheme, but also with the custom theme 'embark' because it overrides them
+" Looks good with 'delek' colorscheme, but also with the custom theme 'embark'
 set cursorline
 set cursorcolumn
 set colorcolumn=81
@@ -37,7 +38,7 @@ augroup MyColors
                       \ | highlight StatusLine ctermbg=132 ctermfg=White
 augroup END
 
-" Setting colorscheme; may need to remove 'termguicolors' off if the terminal doesn't support it
+" Setting colorscheme
 " https://github.com/embark-theme/vim
 set termguicolors
 color embark
@@ -50,25 +51,24 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Status line settings (don't know exactly what they do, tbh, but they look nice)
+" Status line settings (don't know exactly what they do)
 set laststatus=2
 set shortmess-=S
 
 " Comment macros
 let @w = "^i#aj"
 let @s = "^xj"
-let @r = ":normal! @w
-"
-let @f = ":normal! @s
-"
+let @r = ":normal! @w"
+let @f = ":normal! @s"
 
 " Indent macros
 let @q = "0i    aj"
 let @a = "0xxxxaj"
-let @e = ":normal! @q
-"
-let @d = ":normal! @a
-"
+let @e = ":normal! @q"
+let @d = ":normal! @a"
+
+" Open/close netrw
+let @b = ":Lexplore"
 
 " Remapping function keys to macros + save/quit commands
 " Disable F1 help
@@ -88,16 +88,32 @@ nnoremap <F12> @a
 noremap <F1> :wqa!<CR>
 noremap <F2> :qall<CR>
 
-" Netrw settings to look/act like NERDtree
+noremap <C-b> @b
+
+" Netrw settings to look like NERDtree
 " https://shapeshed.com/vim-netrw/
 " https://vi.stackexchange.com/questions/11418/how-to-execute-a-macro-in-command-mode
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
-let g:netrw_winsize = 20
-let g:netrw_browse_split = 4
+" let g:netrw_winsize = 20
+set splitright
+" let g:netrw_browse_split = 4
+
+" Checking for params to add NERDtree or not
+" https://stackoverflow.com/questions/21121786/options-for-vimrc-from-command-line-arguments#21122013
+" Must add some things to .bashrc: 
+"     alias vim="vimx"
+"     alias pvim="vimx --cmd 'let projdraw=1'"
+"     # (vimx is just vim with clipboard sharing support and some other things
+"     # and is installed with gvim)
+if exists('projdraw')
 augroup Project Drawer
     let @g = "l"
+    let g:netrw_winsize = 20
+    let g:netrw_browse_split = 4
+    set splitright
     autocmd!
-    autocmd VimEnter * :Vexplore
+    autocmd VimEnter * :Lexplore
     autocmd VimEnter * :normal @g
 augroup END
+endif
